@@ -10,10 +10,6 @@ register_4 = register("Result_register", 4, True, True) # Result register
 
 
 def ALU(register_1, register_2, register_3, register_4):
-    #register_1.set("0110")
-    #register_2.set("0111")
-    register_3.set("0")
-    register_4.set("0000")
     s = 0
     c = 0
 
@@ -40,6 +36,8 @@ if __name__ == "__main__":
         for j in range(16):
             register_1.set(f"{i:04b}")
             register_2.set(f"{j:04b}")
+            register_3.set("0")
+            register_4.set("0000")
 
             result = f"{i+j:04b}"
 
