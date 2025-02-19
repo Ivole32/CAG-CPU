@@ -10,8 +10,8 @@ register_4 = register("Result_register", 4, True, True) # Result register
 
 
 def ALU(register_1, register_2, register_3, register_4):
-    register_1.set("0110")
-    register_2.set("0111")
+    #register_1.set("0110")
+    #register_2.set("0111")
     register_3.set("0")
     register_4.set("0000")
     s = 0
@@ -34,6 +34,33 @@ def ALU(register_1, register_2, register_3, register_4):
 
 
 if __name__ == "__main__":
-    c ,r = ALU(register_1, register_2, register_3, register_4)
+    error_counter = 0
+    test_counter = 0
+    for i in range(16):
+        for j in range(16):
+            register_1.set(f"{i:04b}")
+            register_2.set(f"{j:04b}")
 
-    print(f"\n\033[32mCarry: {c} Result: {r}\033[0m")
+            result = f"{i+j:04b}"
+
+            c, r = ALU(register_1, register_2, register_3, register_4)
+
+            print(f"\n\033[32mRight result: {result}\033[0m")
+            if len(result) > register_1.bits or len(result) > register_2.bits and c == "1":
+                color_code_1 = "\033[32m"
+                color_code_2 = "\033[0m"
+            elif result == r and c == "0":
+                color_code_1 = "\033[32m"
+                color_code_2 = "\033[0m"
+            else:
+                color_code_1 = "\033[31m"
+                color_code_2 = "\033[0m"
+                error_counter += 1
+
+            test_counter += 1
+            print(f"\n{color_code_1}Carry: {c} Result: {r}{color_code_2}\n\n")
+
+    if error_counter == 0:
+        print(f"\033[32mAll \033[36m{test_counter}\033[32m tests passed\033[0m")
+    else:
+        print(f"\033[31m{error_counter}/{test_counter} tests failed\033[0m")

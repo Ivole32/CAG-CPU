@@ -12,7 +12,7 @@ class register():
         print(f"\033[32m{self.name} set to {self.value}\033[0m")
 
     def get(self):
-        return self.value
+        return "".join(self.value)
     
     def modify(self, index, value):
         self.value = list(self.value)
