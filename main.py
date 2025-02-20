@@ -28,7 +28,6 @@ def ALU(register_1, register_2, register_3, register_4):
     
     return register_3.get(), register_4.get()
 
-
 if __name__ == "__main__":
     error_counter = 0
     test_counter = 0
