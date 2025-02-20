@@ -13,7 +13,7 @@ def ALU(register_1, register_2, register_3, register_4):
     s = 0
     c = 0
 
-    for  i in range(4):
+    for i in range(4):
         print(f"\n\033[32mIteration {i+1}:\033[0m")
         a = int(register_1.get()[3-i])
         b = int(register_2.get()[3-i])
