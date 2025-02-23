@@ -1,13 +1,17 @@
 from gates import *
 from register import register
+from bus import bus
 
-register_1 = register("A_register", 4, True, True) # A register
-register_2 = register("B_register", 4, True, True) # B register
+bus_1 = bus(name="Bus_1", wires=4) # Bus 1
 
-register_3 = register("Carry_register", 1, True, True) # Carry register
+register_1 = register("A_register", 4, False, False, bus=bus_1) # A register
+register_2 = register("B_register", 4, False, False, bus=bus_1) # B register
 
-register_4 = register("Result_register", 4, True, True) # Result register
+register_3 = register("Carry_register", 1, False, False) # Carry register
 
+register_4 = register("Result_register", 4, False, False, bus=bus_1) # Result register
+
+registers = [register_1, register_2, register_4]
 
 def ALU(register_1, register_2, register_3, register_4):
     s = 0
@@ -15,8 +19,16 @@ def ALU(register_1, register_2, register_3, register_4):
 
     for i in range(4):
         print(f"\n\033[32mIteration {i+1}:\033[0m")
-        a = int(register_1.get()[3-i])
-        b = int(register_2.get()[3-i])
+
+        register_1.enable_wire = True
+        for reg in registers:
+            a = int(reg.get()[3-i])
+        register_1.enable_wire = False
+
+        register_2.enable_wire = True
+        for register in registers:
+            b = int(register.get()[3-i])
+        register_2.enable_wire = False
 
         print(f"\033[36m    a: {a} b: {b}\033[0m")
 
